@@ -33,10 +33,10 @@
  <div class="block">
    Пошук <br>
    <label>ПІБ  
-    <input type="text" v-model="search">
+    <input type="text" v-model="searchStudent">
   </label>
   <label>Кімната 
-    <input type="text">
+    <input type="text" v-model="searchRoom">
   </label>
  </div>
 <br>
@@ -47,8 +47,8 @@
      <th>ПІБ</th>
      <th>Кімната</th>
   <tr
-    ></tr><td><ul><div v-for="(student,index) in students" :key="index">{{student}}</div></ul></td> 
-    <td><ul><div v-for="(room,index) in rooms" :key="index">{{room}}</div></ul></td> 
+    ></tr><td><ul><div v-for="(student,index) in filterStudents" :key="index">{{student}}</div></ul></td> 
+    <td><ul><div v-for="(room,index) in filterRooms" :key="index">{{room}}</div></ul></td> 
   </tr>
    </table>
  </div>
@@ -63,8 +63,8 @@ var app = new Vue({
    FreeRooms: ["12a","13b","11c","25a","17b"],
    students: [],
    rooms: [],
-   search: '',
-   
+   searchStudent: '',
+   searchRoom: ''
   },
 
 methods: {
@@ -79,6 +79,16 @@ computed: {
   isButtonDisabled(){
     if(this.studentName != 0 && this.selectedRoom != 0)
     return true
+  },
+  filterStudents(){
+    return this.students.filter(student => {
+      return student.indexOf(this.searchStudent) !== -1
+    })
+  },
+  filterRooms(){
+    return this.rooms.filter(room => {
+      return room.indexOf(this.searchRoom) !== -1
+    })
   }
 },
 
