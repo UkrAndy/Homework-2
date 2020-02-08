@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+    .block{
+      border: 2px solid black;
+      width: 500px;
+      height: 50px;
+      margin-top: 20px;
+    }
+    </style>
+</head>
+<body>
+<div id="app">
+<div>
+<label>ПІБ  
+  <input type="text" v-model="studentName">
+</label>
+<br><br>
+Кімната
+<select v-model="selectedRoom">
+<option v-for="(freeRoom,index) in FreeRooms" :key="index" :value="freeRoom">{{freeRoom}}</option>
+</select>
+<br>
+<button @click="addStudent" :disabled="!isButtonDisabled">Додати</button>
+ </div>
+
+ <div class="block">
+   Пошук <br>
+   <label>ПІБ  
+    <input type="text" v-model="search">
+  </label>
+  <label>Кімната 
+    <input type="text">
+  </label>
+ </div>
+<br>
+
+ <div>
+   Список жильців гуртожитку
+   <table border="1px">
+     <th>ПІБ</th>
+     <th>Кімната</th>
+  <tr
+    ></tr><td><ul><div v-for="(student,index) in students" :key="index">{{student}}</div></ul></td> 
+    <td><ul><div v-for="(room,index) in rooms" :key="index">{{room}}</div></ul></td> 
+  </tr>
+   </table>
+ </div>
+</div>
+
+<script> 
+var app = new Vue({
+  el: '#app',
+  data: {
+    studentName: "",
+    selectedRoom: 0,
+   FreeRooms: ["12a","13b","11c","25a","17b"],
+   students: [],
+   rooms: [],
+   search: '',
+   
+  },
+
+methods: {
+  addStudent() {
+    this.students.push(this.studentName)
+    this.rooms.push(this.selectedRoom)
+  },
+
+},
+
+computed: {
+  isButtonDisabled(){
+    if(this.studentName != 0 && this.selectedRoom != 0)
+    return true
+  }
+},
+
+})
+    </script>
+</body>
+</html>
